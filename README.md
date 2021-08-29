@@ -24,8 +24,15 @@ This web application is configured to run on locatlhost (127.0.0.1) and port 808
   * localhost:8080 : This serves the contents common across all modules. I'm calling it home and it's currently responding text "OS Services ...". 
   * localhost:8080/os/memory/ : This serves the contents from Memory mocule. <br />
   The intent for this design is to provide different contexts for different resources as per REST best practices. The hope is that the reader will extend   this repo and add a new path  localhost:8080/os/virtual/ to serve contents from Virtual module. <br />
-* The path localhost:8080/os/memory/ requires a path parameter "alloc_method". The current implementation doesn't require any specif value for alloc_method, it can be anything. The hope is that the reader will modify this code to call different functions based on allocation mrthod requested. The reader may want to explore Rust enum structure and pattern matching feature "match" to implement this. 
+* The path localhost:8080/os/memory/ requires a path parameter "alloc_method". The current implementation doesn't require any specific value for alloc_method, it can be anything. The hope is that the reader will modify this code to call different functions based on allocation method requested. The reader may want to explore Rust enum structure and pattern matching feature "match" to implement this. 
 
+  | alloc_method | called function |
+  | ------------ | --------------- |
+  | best_fit | best_fit_allocate |
+  | first_fit | first_fit_allocate |
+  | worst_fit | worst_fit_allocate |
+  | next_fit | next_fit_allocate |
+  | release | release_memory |
 
 
 ## Run and Extend
