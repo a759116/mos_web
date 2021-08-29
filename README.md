@@ -3,25 +3,33 @@
 This article is an extension of article [Application Development with Rust](https://github.com/a759116/mos_rust#application-development-with-rust). The purpose of this article is to demonstrate development of API using Rust. This article will provide an example design and implementation of REST API to expose functionality already developed in [repo](https://github.com/a759116/mos_rust). The hope is that the reader will be able to explore the example implementation and extend this to further solidify their understanding of developing API using Rust.
 
 ## Introduction
-I developed this code as part of my learning Rust. I had already developed the same in Python and C as part of my class assignment. I didn't have to spend time in developing logic, rather I focussed on developing the same using Rust. This expedited my learning process. In this article, I would want to sharer the use-cases, and the design that I based this code on. My hope was that this would help the reader not to worry about the use-case or design, rather the reader would explore the implementation using Rust, and this could expedite the Rust learning for the reader.
-
-The use-case section of this article would link to the page with problem description. The design section would details the code structure. The run and extend section would detail the process to run this code, prerequisities, and options to extend this code. I hope that this would make it easier for the reader to learn Rust.
+TBW
 ## Use-cases
-The use-cases have been borrowed from NYU Cyberfellow class Introduction to Operating Systems. This class has a number of assignments to help the students to better understand various concepts in Operating System. This specific code has implementation for two of those assignments: 
-* [Memory allocation lab](https://github.com/a759116/mos_rust/wiki/Use-Cases#memory-allocation-lab): This lab project addresses the various memory-management schemes in an operating system.
-* [Virtual lab](https://github.com/a759116/mos_rust/wiki/Use-Cases#virtual-memory-lab): This lab project addresses the implementation of page-replacement algorithms in a demand-paging system.
+The existing [application](https://github.com/a759116/mos_rust/tree/main/src) has two modules. The module Memory has different algorithms for allocating memory for a requesting process. Here are the list of functions implemented in this module.
+* best_fit_allocate
+* first_fit_allocate
+* worst_fit_allocate
+* next_fit_allocate
+* release_memory
+
+Similarly, the module Virtual has implementation for a number of algorithms for allocating virtual memeory. This article will provide an example implementation of a REST API that is exposing best_fit_allocate functionality. The hope is that the reader will follow the example and expose other functionalities through REST APIs.
 
 ## Design
-The solution was developed as two different modules a) Memory for Memory Allocation, and b) Virtual for pagination algorithms in a system that utilized virtual memory. 
+I used [actix](https://actix.rs/) framework for developing APIs in Rust. 
 
-In Rust, the modules were to be defined either in main.rs or lib.rs. I had chosen to use lib.rs. You would notice that virtual was prefixed with r# in lib.rs. This was because virtual was a reserved keyword in Rust, and the prefix would help to escape the reserved keywords and use them as identifiers. For both modules defined in lib.rs, I had to create two .rs extension files: a) memory.rs, and b) virtual.rs. I again defined two modules in each of these files. For example, I had memory and test_memory in memory.rs. With this, I had a folder named memory that contained memory.rs, and test_memory.rs. The memory.rs had implementation code for Memory Allocation lab use-case. As the name suggests, test_memory had unit test code for the functionality implemented in memory.rs. Similar design was followed for implementing Virtual Lab use-case.
+This web application is configured to run on locatlhost (127.0.0.1) and port 8080. This configuration has been implemented in **src/main.rs**. Few other things that have been configure in src/main.rs.
+* Tag actix_web::main is exposing this application as a web application.
+* HttpServer is instantiating the embedded web server to service web requests.
+* There are two service function calls to configure two different paths
+  * localhost:8080 : This serves the contents common across all modules. I'm calling it home and it's currently responding text "OS Services ...". 
+  * localhost:8080/os/memory/ : This serves the contents from Memory mocule. <br />
+  The intent for this design is to provide different contexts for different resources as per REST best practices. The hope is that the reader will extend   this repo and add a new path  localhost:8080/os/virtual/ to serve contents from Virtual module. <br />
+* The path localhost:8080/os/memory/ requires a path parameter "alloc_method". The current implementation doesn't require any specif value for alloc_method, it can be anything. The hope is that the reader will modify this code to call different functions based on allocation mrthod requested. The reader may want to explore Rust enum structure and pattern matching feature "match" to implement this. 
 
-I used "serde" crate to enable serialization and desearilization of structured data. This was done to be able to expose the functionality as REST APIs. The details for API development would be covered in a separate [repo](https://github.com/a759116/mos_web). These external libraries or crates were to be defined as dependencies in Cargo.toml.
+
 
 ## Run and Extend
-Before downloading and running this code, please follow [Rust Getting Started](https://www.rust-lang.org/learn/get-started). At this point, you would have Rust installed. Now you would clone or download this code. Then go to the code directory, and run the command "cargo test --lib". Upon successful run, you would see a message like "test result: ok. 37 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s". 
-
-If you would want to extend this code, you could implement functionality for [Disk Scheduling](https://github.com/a759116/mos_rust/wiki/Use-Cases#disk-scheduling-lab) and [CPU Scheduling](https://github.com/a759116/mos_rust/wiki/Use-Cases#cpu-scheduling-lab) labs following the design stated above and using the code here as examples.
+TBW
 
 ## Conclusion
-This was an attempt to provide an example design and implementation to help the reader to learn Rust. The reader was expected to explore the code on their own. This would be revised based on feedback from readers to achieve the goal of making it easier to learn Rust.
+TBW
