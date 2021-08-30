@@ -34,6 +34,37 @@ This web application is configured to run on locatlhost (127.0.0.1) and port 808
   | next_fit | next_fit_allocate |
   | release | release_memory |
 
+The "src" folder contains code for creating different API endpoints and "tests" folder contains code to test those respective ebdpoints.
+
+The folder "src" has a subfolder "services" that contains code for different contexts such as home, memory, and virtual. To achieve this structure in Rust,
+* module services is defined in lib.rs
+* different contexts are defined as modules in services.rs. As of this writing, the modules defined are home, memory, and virtual.
+  * After this step, the subfolder services is created and Rust code is written for different modules in files home.rs, memory.rs, and virtual.rs. 
+
+As of this writing, the code is there only in memory.rs to expose best_fit_allocate functionality as a REST API.
+* The API is expecting a JSON payload as input. Here is an example payload <br />
+  ```
+  {
+      "memory_map": {
+          "memory_blocks": [
+              {
+                  "start_address": 0,
+                  "end_address": 1023,
+                  "segment_size": 1024,
+                  "process_id": 0
+              }
+          ]
+      },
+      "req_size": 10,
+      "req_process_id": 32
+  }
+  ```
+  - To achieve this in Rust,
+    - Two stucts have been defined: MemoryMap, and MemoryAllocationRequest
+    - I used [Serde](https://serde.rs/) framework for serializing and deserializing these data structures. The use of derive macro from Serde generates implementations of the Serialize and Deserialize traits for these data structure.
+    - The [Json helper](https://docs.rs/actix-web/3.3.2/actix_web/web/struct.Json.html) from modeule web in crate actix-web is used to extract MemoryAllocationRequest struct structure from input Json payload.
+
+
 
 ## Run and Extend
 TBW
