@@ -3,7 +3,10 @@
 This article is an extension of article [Application Development with Rust](https://github.com/a759116/mos_rust#application-development-with-rust). The purpose of this article is to demonstrate development of API using Rust. This article will provide an example design and implementation of REST API to expose functionality already developed. The hope is that the reader will be able to explore the example implementation and extend this to further solidify their understanding of developing API using Rust.
 
 ## Introduction
-TBW
+I developed this code as part of my learning Rust. I had already developed code in Rust for memory allocation functionality. I wanted to expose that functionality as REST APIs and wanted to develop it in Rust. With my research, I was able to build a REST API using Rust. In this article, I would want to sharer the use-cases, and the design that I based this code on. My hope was that this would help the reader not to worry about the use-case or design, rather the reader would explore the implementation using Rust, and this could expedite the Rust learning for the reader.
+
+The use-case section of this article would link to the repo with existing memory and virtual memory allocation functionality developed in Rust. The design section details the steps required to build REST API to expose existing functionality. The run and extend section details the process to run this code, and options to extend this code. I hope that this makes it easier for the reader to learn Rust.
+
 ## Use-cases
 The existing [application](https://github.com/a759116/mos_rust/tree/main/src) has two modules. The module Memory has different algorithms for allocating memory for a requesting process. Here are the list of functions implemented in this module.
 * best_fit_allocate
@@ -123,7 +126,7 @@ Response Body:
     ]
 }
 ```
-The reader can expose other functions implemented in the modules Memory and Virtual as REST APIs.
+Some ideas have been discussed already in this article for extending this repo. I hope the reader can expose other functions implemented in the modules Memory and Virtual as REST APIs.
 
 ## Conclusion
 This was an attempt to provide an example design and implementation of REST API using Rust to help the reader to learn Rust. The reader was expected to explore the code on their own. This would be revised based on feedback from readers to achieve the goal of making it easier to learn Rust. <br />
