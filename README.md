@@ -62,12 +62,68 @@ As of this writing, the code is there only in memory.rs to expose best_fit_alloc
   - To achieve this in Rust,
     - Two stucts have been defined: MemoryMap, and MemoryAllocationRequest
     - I used [Serde](https://serde.rs/) framework for serializing and deserializing these data structures. The use of derive macro from Serde generates implementations of the Serialize and Deserialize traits for these data structure.
-    - The [Json helper](https://docs.rs/actix-web/3.3.2/actix_web/web/struct.Json.html) from modeule web in crate actix-web is used to extract MemoryAllocationRequest struct structure from input Json payload.
+    - The [Json helper](https://docs.rs/actix-web/3.3.2/actix_web/web/struct.Json.html) from module web in crate actix-web is used to extract MemoryAllocationRequest struct structure from input Json payload.
 
+* The API calls function best_fit_allocate defined in module memory::memory of crate mos_rust to allocate memory.
+  - To achieve this in Rust,
+    - I've defined a dependency on mos_rust, and I've the project mos_rust at path ../mos_rust with respect to this project
 
+* The API responds and the payload is sent in Json format.
+  - To achieve this, I used the method "json" of "HttpResponseBuilder". The "Ok" method of HttpResponse returns "HttpResponseBuilder". This helped to create the response in Json format.
+
+The hope is that the reader can follow this as an example and expose other functions as APIs.
 
 ## Run and Extend
-TBW
+There are two options to run and test the existing code.
+1. Clone or download this code. Then go to the code directory, and run the command "cargo test". Upon successful run, you will see message like 
+```
+Running tests/test_memory.rs
+running 2 test
+test tests::test_index_get ... ok
+test tests::test_best_fit_allocate_get ... ok".
+```
+2. Use a tool like Postman to test your API. Clone or download this code. Then go to the code directory, and run the command "cargo run". You will see message like
+```
+    Finished dev [unoptimized + debuginfo] target(s) in 0.26s
+     Running `target/debug/mos_web
+```
+Now use Postman to send a POST request to  localhost:8080/os/memory/best_fit. Here is an example request and response body for the request
+```
+Request Body:
+{
+    "memory_map": {
+        "memory_blocks": [
+            {
+                "start_address": 0,
+                "end_address": 1023,
+                "segment_size": 1024,
+                "process_id": 0
+            }
+        ]
+    },
+    "req_size": 10,
+    "req_process_id": 32
+}
+
+Response Body:
+{
+    "memory_blocks": [
+        {
+            "start_address": 0,
+            "end_address": 9,
+            "segment_size": 10,
+            "process_id": 32
+        },
+        {
+            "start_address": 10,
+            "end_address": 1023,
+            "segment_size": 1014,
+            "process_id": 0
+        }
+    ]
+}
+```
+The reader can expose other functions implemented in the modules Memory and Virtual as REST APIs.
 
 ## Conclusion
-TBW
+This was an attempt to provide an example design and implementation of REST API using Rust to help the reader to learn Rust. The reader was expected to explore the code on their own. This would be revised based on feedback from readers to achieve the goal of making it easier to learn Rust.
