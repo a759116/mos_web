@@ -1,6 +1,6 @@
 # API Development with Rust
 ## Abstract
-This article is an extension of article [Application Development with Rust](https://github.com/a759116/mos_rust#application-development-with-rust). The purpose of this article is to demonstrate development of API using Rust. This article will provide an example design and implementation of REST API to expose functionality already developed in [repo](https://github.com/a759116/mos_rust). The hope is that the reader will be able to explore the example implementation and extend this to further solidify their understanding of developing API using Rust.
+This article is an extension of article [Application Development with Rust](https://github.com/a759116/mos_rust#application-development-with-rust). The purpose of this article is to demonstrate development of API using Rust. This article will provide an example design and implementation of REST API to expose functionality already developed. The hope is that the reader will be able to explore the example implementation and extend this to further solidify their understanding of developing API using Rust.
 
 ## Introduction
 TBW
@@ -22,7 +22,7 @@ This web application is configured to run on locatlhost (127.0.0.1) and port 808
 * HttpServer is instantiating the embedded web server to service web requests.
 * There are two service function calls to configure two different paths
   * localhost:8080 : This serves the contents common across all modules. I'm calling it home and it's currently responding text "OS Services ...". 
-  * localhost:8080/os/memory/ : This serves the contents from Memory mocule. <br />
+  * localhost:8080/os/memory/ : This serves the contents from Memory module. <br />
   The intent for this design is to provide different contexts for different resources as per REST best practices. The hope is that the reader will extend   this repo and add a new path  localhost:8080/os/virtual/ to serve contents from Virtual module. <br />
 * The path localhost:8080/os/memory/ requires a path parameter "alloc_method". The current implementation doesn't require any specific value for alloc_method, it can be anything. The hope is that the reader will modify this code to call different functions based on allocation method requested. The reader may want to explore Rust enum structure and pattern matching feature "match" to implement this. 
 
@@ -66,12 +66,12 @@ As of this writing, the code is there only in memory.rs to expose best_fit_alloc
 
 * The API calls function best_fit_allocate defined in module memory::memory of crate mos_rust to allocate memory.
   - To achieve this in Rust,
-    - I've defined a dependency on mos_rust, and I've the project mos_rust at path ../mos_rust with respect to this project
+    - I've defined a dependency on mos_rust, and I've the [project mos_rust](https://github.com/a759116/mos_rust) at path ../mos_rust with respect to this project
 
-* The API responds and the payload is sent in Json format.
+* The API response is in Json format.
   - To achieve this, I used the method "json" of "HttpResponseBuilder". The "Ok" method of HttpResponse returns "HttpResponseBuilder". This helped to create the response in Json format.
 
-The hope is that the reader can follow this as an example and expose other functions as APIs.
+With the above explanation, the hope is that the reader can follow this example and expose other functions as REST APIs.
 
 ## Run and Extend
 There are two options to run and test the existing code.
@@ -126,4 +126,6 @@ Response Body:
 The reader can expose other functions implemented in the modules Memory and Virtual as REST APIs.
 
 ## Conclusion
-This was an attempt to provide an example design and implementation of REST API using Rust to help the reader to learn Rust. The reader was expected to explore the code on their own. This would be revised based on feedback from readers to achieve the goal of making it easier to learn Rust.
+This was an attempt to provide an example design and implementation of REST API using Rust to help the reader to learn Rust. The reader was expected to explore the code on their own. This would be revised based on feedback from readers to achieve the goal of making it easier to learn Rust. <br />
+
+If the reader wishes, they can build a UI using [Rust WebAssembly] (https://www.rust-lang.org/what/wasm). This will serve as a frontend to APIs.
