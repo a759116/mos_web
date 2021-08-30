@@ -15,12 +15,12 @@ The existing [application](https://github.com/a759116/mos_rust/tree/main/src) ha
 * next_fit_allocate
 * release_memory
 
-Similarly, the module Virtual has implementation for a number of algorithms for allocating virtual memeory. This article will provide an example implementation of a REST API that is exposing best_fit_allocate functionality. The hope is that the reader will follow the example and expose other functionalities through REST APIs.
+Similarly, the module Virtual has implementation for a number of algorithms for allocating virtual memory. This article will provide an example implementation of a REST API that is exposing best_fit_allocate functionality. The hope is that the reader will follow the example and expose other functionalities through REST APIs.
 
 ## Design
 I used [actix](https://actix.rs/) framework for developing APIs in Rust. 
 
-This web application is configured to run on locatlhost (127.0.0.1) and port 8080. This configuration has been implemented in **src/main.rs**. Few other things that have been configure in src/main.rs.
+This web application is configured to run on localhost (127.0.0.1) and port 8080. This configuration has been implemented in **src/main.rs**. Few other things that have been configure in src/main.rs.
 * Tag actix_web::main is exposing this application as a web application.
 * HttpServer is instantiating the embedded web server to service web requests.
 * There are two service function calls to configure two different paths
@@ -37,7 +37,7 @@ This web application is configured to run on locatlhost (127.0.0.1) and port 808
   | next_fit | next_fit_allocate |
   | release | release_memory |
 
-The "src" folder contains code for creating different API endpoints and "tests" folder contains code to test those respective ebdpoints.
+The "src" folder contains code for creating different API endpoints and "tests" folder contains code to test those respective endpoints.
 
 The folder "src" has a subfolder "services" that contains code for different contexts such as home, memory, and virtual. To achieve this structure in Rust,
 * module services is defined in lib.rs
@@ -131,4 +131,4 @@ Some ideas have been discussed already in this article for extending this repo. 
 ## Conclusion
 This was an attempt to provide an example design and implementation of REST API using Rust to help the reader to learn Rust. The reader was expected to explore the code on their own. This would be revised based on feedback from readers to achieve the goal of making it easier to learn Rust. <br />
 
-If the reader wishes, they can build a UI using [Rust WebAssembly] (https://www.rust-lang.org/what/wasm). This will serve as a frontend to APIs.
+If the reader wishes, they can build a UI using [Rust WebAssembly](https://www.rust-lang.org/what/wasm). This will serve as a frontend to APIs.
